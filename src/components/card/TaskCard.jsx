@@ -3,6 +3,7 @@ import Modal from "@mui/material/Modal"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
+import CheckLists from "../checklists/CheckLists"
 
 const TaskCard = (props) => {
     const { cardInfo } = props
@@ -15,13 +16,16 @@ const TaskCard = (props) => {
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        width: 400,
+        width: 600,
+        minHeight: "80vh",
         bgcolor: "#323940",
         borderRadius: "10px",
         boxShadow: 24,
         p: 4,
         color: "#b6c2cf",
+        overflowY: "scroll",
     }
+
     return (
         <>
             <Button onClick={handleOpen}>{cardInfo.name}</Button>
@@ -42,6 +46,7 @@ const TaskCard = (props) => {
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {cardInfo.desc}
                     </Typography>
+                    <CheckLists cardId={cardInfo.id} />
                 </Box>
             </Modal>
         </>

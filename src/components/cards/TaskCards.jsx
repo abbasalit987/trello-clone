@@ -23,7 +23,7 @@ const TaskCards = (props) => {
     return (
         <div className="cards-container">
             {taskCardInfo.map((card) => {
-                return <TaskCard cardInfo={card} />
+                return <TaskCard key={card.id} cardInfo={card} />
             })}
         </div>
     )
