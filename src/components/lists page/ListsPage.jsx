@@ -1,53 +1,31 @@
-import React from "react"
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import Typography from "@mui/material/Typography"
-import Modal from "@mui/material/Modal"
+import React, { useEffect, useState } from "react"
+import List from "../list/List"
 import Header from "../../components/toolbar/Header"
 import "./ListsPage.css"
+import { useParams } from "react-router-dom"
+import config from "../../../config"
+import axios from "axios"
 
-const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-}
+const apiKey = config.apiKey
+const token = config.token
 
 const ListsPage = () => {
-    const [open, setOpen] = React.useState(false)
-    const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
+    const { boardId } = useParams()
+    const [lists, setLists] = useState([])
+    const url = `https://api.trello.com/1/boards/${boardId}/lists?key=${apiKey}&token=${token}`
 
+    useEffect(() => {
+        axios.get(url).then((response) => {
+            setLists(response.data)
+        })
+    }, [])
     return (
         <div>
             <Header />
-            <div className="lists-page-container">
-                <Button onClick={handleOpen}>Open modal</Button>
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={style}>
-                        <Typography
-                            id="modal-modal-title"
-                            variant="h6"
-                            component="h2"
-                        >
-                            Text in a modal
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Duis mollis, est non commodo luctus, nisi erat
-                            porttitor ligula.
-                        </Typography>
-                    </Box>
-                </Modal>
+            <div className="lists-container">
+                {lists.map((list) => {
+                    return <List key={list.id} listInfo={list} />
+                })}
             </div>
         </div>
     )

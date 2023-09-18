@@ -1,3 +1,3 @@
-.lists-page-container {
-    padding: 20px;
+.lists-container {
+    display: flex;
 }

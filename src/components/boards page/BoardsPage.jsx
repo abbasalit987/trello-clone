@@ -17,7 +17,7 @@ const BoardsPage = () => {
         axios.get(url).then((res) => {
             setBoards(res.data)
         })
-    })
+    }, [])
 
     return (
         <>
