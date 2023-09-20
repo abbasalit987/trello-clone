@@ -1,3 +1,9 @@
 .lists-container {
     display: flex;
+    align-items: flex-start;
+}
+
+.main-lists-container {
+    overflow-x: scroll;
+    min-height: 100vh;
 }

@@ -3,6 +3,7 @@ import config from "../../../config"
 import axios from "axios"
 import TaskCard from "../card/TaskCard"
 import "./TaskCards.css"
+import AddCard from "./AddCard"
 
 const apiKey = config.apiKey
 const token = config.token
@@ -25,6 +26,7 @@ const TaskCards = (props) => {
             {taskCardInfo.map((card) => {
                 return <TaskCard key={card.id} cardInfo={card} />
             })}
+            <AddCard listId={listId} setTaskCardInfo={setTaskCardInfo} />
         </div>
     )
 }

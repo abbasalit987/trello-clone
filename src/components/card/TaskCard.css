@@ -1,8 +1,4 @@
-.list-container {
-    padding: 20px;
-}
-
-.list-name {
+.task-card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;

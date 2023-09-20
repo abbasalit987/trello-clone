@@ -4,6 +4,7 @@ import Header from "../toolbar/Header"
 import axios from "axios"
 import config from "../../../config"
 import Board from "../board/Board"
+import CreateBoard from "./CreateBoard"
 
 const apiKey = config.apiKey
 const token = config.token
@@ -22,15 +23,19 @@ const BoardsPage = () => {
     return (
         <>
             <Header />
-            {boards.map((board) => {
-                let boardInfo = {
-                    id: board.id,
-                    url: board.url,
-                    name: board.name,
-                    imgUrl: board.prefs.backgroundImage,
-                }
-                return <Board key={board.id} boardInfo={boardInfo} />
-            })}
+            <div className="all-boards">
+                <CreateBoard setBoards={setBoards} />
+                {boards.map((board) => {
+                    let boardInfo = {
+                        id: board.id,
+                        url: board.url,
+                        name: board.name,
+                        imgUrl: board.prefs.backgroundImage,
+                        bgcolor: board.prefs.backgroundColor,
+                    }
+                    return <Board key={board.id} boardInfo={boardInfo} />
+                })}
+            </div>
         </>
     )
 }

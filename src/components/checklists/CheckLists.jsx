@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import config from "../../../config"
 import axios from "axios"
 import CheckList from "../checklist/CheckList"
+import { Typography } from "@mui/material"
+import AddCheckList from "./AddCheckList"
 
 const apiKey = config.apiKey
 const token = config.token
@@ -15,14 +17,23 @@ const CheckLists = (props) => {
     useEffect(() => {
         axios.get(url).then((response) => {
             setCheckList(response.data)
+            console.log(response.data)
         })
     }, [])
 
     return (
         <>
+            <Typography sx={{}}>Check lists</Typography>
             {checkList.map((list) => {
-                return <CheckList key={list.id} checkListId={list.id} />
+                return (
+                    <CheckList
+                        key={list.id}
+                        checkListId={list.id}
+                        checkListName={list.name}
+                    />
+                )
             })}
+            <AddCheckList cardId={cardId} setCheckList={setCheckList} />
         </>
     )
 }

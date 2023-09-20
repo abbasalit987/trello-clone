@@ -10,7 +10,7 @@ const Board = (props) => {
     const navigate = useNavigate()
 
     const navigateToBoard = (id) => {
-        navigate(`/b/${id}`)
+        navigate(`/b/${id}`, { state: { boardName: boardInfo.name } })
     }
 
     return (
@@ -32,6 +32,7 @@ const Board = (props) => {
                     backgroundImage: `url(${boardInfo.imgUrl})`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
+                    backgroundColor: `${boardInfo.bgcolor}`,
                 }}
                 onClick={() => navigateToBoard(boardInfo.id)}
             >
