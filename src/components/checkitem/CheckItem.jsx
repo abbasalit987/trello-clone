@@ -7,16 +7,57 @@ import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import "./CheckItem.css"
+import config from "../../../config"
+import axios from "axios"
+
+const apiKey = config.apiKey
+const token = config.token
 
 const CheckItem = (props) => {
-    const { checkItemInfo } = props
-    console.log(checkItemInfo)
+    const { checkItemInfo, cardId } = props
 
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(checkItemInfo.state)
     const [checkItemDeleted, setCheckItemDeleted] = useState(false)
 
-    const handleCheckboxChange = (isChecked) => {
-        setIsChecked(!isChecked)
+    const handleCheckboxChange = () => {
+        // Toggle the isChecked state
+        const newState = isChecked === "complete" ? "incomplete" : "complete"
+        setIsChecked(newState)
+
+        // Update the check item with the new state
+        updateTheCheckItem(checkItemInfo.id, newState)
+    }
+
+    const updateTheCheckItem = (checkItemId, newState) => {
+        const url = `https://api.trello.com/1/cards/${cardId}/checkItem/${checkItemId}?key=${apiKey}&token=${token}&state=${newState}`
+
+        axios
+            .put(url)
+            .then(() => {
+                // Check item updated successfully
+            })
+            .catch((error) => {
+                console.error("Error updating check item:", error)
+            })
+    }
+
+    const handleDeleteCheckItem = () => {
+        // Delete the check item
+        deleteCheckItem(checkItemInfo.id, checkItemInfo.idChecklist)
+    }
+
+    const deleteCheckItem = (checkItemId, checkListId) => {
+        const url = `https://api.trello.com/1/checklists/${checkListId}/checkItems/${checkItemId}?key=${apiKey}&token=${token}`
+
+        axios
+            .delete(url)
+            .then(() => {
+                // Check item deleted successfully
+                setCheckItemDeleted(true)
+            })
+            .catch((error) => {
+                console.error("Error deleting check item:", error)
+            })
     }
 
     return (
@@ -25,17 +66,13 @@ const CheckItem = (props) => {
                 <div className="check-item-header">
                     <Box sx={{ display: "flex", gap: 3 }}>
                         <FormControlLabel
-                            checked={isChecked}
+                            checked={isChecked === "complete"}
                             control={<Checkbox />}
                             label={checkItemInfo.name}
-                            onChange={() => handleCheckboxChange(isChecked)}
+                            onChange={handleCheckboxChange}
                         />
                     </Box>
-                    <IconButtonMenu
-                        checkItemId={checkItemInfo.id}
-                        checkListId={checkItemInfo.idChecklist}
-                        setCheckItemDeleted={setCheckItemDeleted}
-                    />
+                    <IconButtonMenu onDelete={handleDeleteCheckItem} />
                 </div>
             )}
         </>
@@ -44,8 +81,7 @@ const CheckItem = (props) => {
 
 export default CheckItem
 
-function IconButtonMenu(props) {
-    const { checkItemId, checkListId, setCheckItemDeleted } = props
+function IconButtonMenu({ onDelete }) {
     const [anchorEl, setAnchorEl] = React.useState(null)
 
     const handleClick = (event) => {
@@ -54,13 +90,6 @@ function IconButtonMenu(props) {
 
     const handleClose = () => {
         setAnchorEl(null)
-    }
-
-    const deleteCard = (checkItemId, checkListId) => {
-        const url = `https://api.trello.com/1/checklists/${checkListId}/checkItems/${checkItemId}?key=${apiKey}&token=${token}`
-        axios.delete(url).then(() => {
-            setCheckItemDeleted(true)
-        })
     }
 
     return (
@@ -79,9 +108,7 @@ function IconButtonMenu(props) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={() => deleteCard(checkItemId, checkListId)}>
-                    Delete
-                </MenuItem>
+                <MenuItem onClick={onDelete}>Delete</MenuItem>
             </Menu>
         </div>
     )

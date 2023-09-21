@@ -17,7 +17,6 @@ const CheckLists = (props) => {
     useEffect(() => {
         axios.get(url).then((response) => {
             setCheckList(response.data)
-            console.log(response.data)
         })
     }, [])
 
@@ -30,6 +29,7 @@ const CheckLists = (props) => {
                         key={list.id}
                         checkListId={list.id}
                         checkListName={list.name}
+                        cardId={cardId}
                     />
                 )
             })}

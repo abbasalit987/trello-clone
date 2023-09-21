@@ -15,7 +15,7 @@ const apiKey = config.apiKey
 const token = config.token
 
 const CheckList = (props) => {
-    const { checkListId, checkListName } = props
+    const { checkListId, checkListName, cardId } = props
 
     const [checkItems, setCheckItems] = useState([])
     const [progress, setProgress] = useState(0)
@@ -27,7 +27,7 @@ const CheckList = (props) => {
         axios.get(url).then((response) => {
             setCheckItems(response.data)
         })
-    }, [])
+    }, [checkItems])
 
     const updateProgress = () => {
         if (checkItems.length === 0) {
@@ -62,11 +62,18 @@ const CheckList = (props) => {
                         />
                     </div>
                     {checkItems.map((item) => {
-                        return <CheckItem key={item.id} checkItemInfo={item} />
+                        return (
+                            <CheckItem
+                                key={item.id}
+                                checkItemInfo={item}
+                                cardId={cardId}
+                            />
+                        )
                     })}
                     <AddCheckItem
                         checkListId={checkListId}
                         setCheckItems={setCheckItems}
+                        cardId={cardId}
                     />
                 </>
             )}
