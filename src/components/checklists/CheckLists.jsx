@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
+import { Typography } from "@mui/material"
+import CheckList from "../checklist/CheckList"
+import AddCheckList from "./AddCheckList"
 import config from "../../../config"
 import axios from "axios"
-import CheckList from "../checklist/CheckList"
-import { Typography } from "@mui/material"
-import AddCheckList from "./AddCheckList"
 
 const apiKey = config.apiKey
 const token = config.token

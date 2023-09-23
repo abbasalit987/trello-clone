@@ -1,19 +1,22 @@
-import React, { useState } from "react"
-import Card from "@mui/material/Card"
-import CardContent from "@mui/material/CardContent"
-import Typography from "@mui/material/Typography"
-import Button from "@mui/material/Button"
-import Input from "@mui/material/Input"
-import Stack from "@mui/material/Stack"
+import React, { useReducer, useState } from "react"
+import {
+    Card,
+    CardContent,
+    Typography,
+    Button,
+    Input,
+    Stack,
+} from "@mui/material"
 import config from "../../../config"
 import axios from "axios"
 import "../list/List.css"
+import { ACTIONS } from "../../reducer/reducer"
 
 const apiKey = config.apiKey
 const token = config.token
 
 const AddCard = (props) => {
-    const { listId, setTaskCardInfo } = props
+    const { listId, dispatch } = props
     const [cardCreatePhase, setCardCreatePhase] = useState(false)
 
     const handleCardCreate = () => {
@@ -22,11 +25,12 @@ const AddCard = (props) => {
 
     const cardCreateRequest = (cardName) => {
         const url = `https://api.trello.com/1/cards?idList=${listId}&key=${apiKey}&token=${token}&name=${cardName}`
-        axios
-            .post(url)
-            .then((response) =>
-                setTaskCardInfo((prevValue) => [...prevValue, response.data])
-            )
+        axios.post(url).then((response) =>
+            dispatch({
+                type: ACTIONS.ADD_TASK_CARD_INFO,
+                payload: response.data,
+            })
+        )
     }
 
     return (

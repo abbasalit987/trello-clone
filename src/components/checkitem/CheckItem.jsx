@@ -1,10 +1,12 @@
 import React, { useState } from "react"
-import Box from "@mui/material/Box"
-import Checkbox from "@mui/material/Checkbox"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import IconButton from "@mui/material/IconButton"
-import Menu from "@mui/material/Menu"
-import MenuItem from "@mui/material/MenuItem"
+import {
+    Box,
+    Checkbox,
+    FormControlLabel,
+    IconButton,
+    Menu,
+    MenuItem,
+} from "@mui/material"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import "./CheckItem.css"
 import config from "../../../config"
@@ -20,29 +22,18 @@ const CheckItem = (props) => {
     const [checkItemDeleted, setCheckItemDeleted] = useState(false)
 
     const handleCheckboxChange = () => {
-        // Toggle the isChecked state
         const newState = isChecked === "complete" ? "incomplete" : "complete"
         setIsChecked(newState)
 
-        // Update the check item with the new state
         updateTheCheckItem(checkItemInfo.id, newState)
     }
 
     const updateTheCheckItem = (checkItemId, newState) => {
         const url = `https://api.trello.com/1/cards/${cardId}/checkItem/${checkItemId}?key=${apiKey}&token=${token}&state=${newState}`
-
-        axios
-            .put(url)
-            .then(() => {
-                // Check item updated successfully
-            })
-            .catch((error) => {
-                console.error("Error updating check item:", error)
-            })
+        axios.put(url)
     }
 
     const handleDeleteCheckItem = () => {
-        // Delete the check item
         deleteCheckItem(checkItemInfo.id, checkItemInfo.idChecklist)
     }
 
@@ -52,7 +43,6 @@ const CheckItem = (props) => {
         axios
             .delete(url)
             .then(() => {
-                // Check item deleted successfully
                 setCheckItemDeleted(true)
             })
             .catch((error) => {
@@ -82,7 +72,7 @@ const CheckItem = (props) => {
 export default CheckItem
 
 function IconButtonMenu({ onDelete }) {
-    const [anchorEl, setAnchorEl] = React.useState(null)
+    const [anchorEl, setAnchorEl] = useState(null)
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)

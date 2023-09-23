@@ -1,16 +1,14 @@
-import React, { useState } from "react"
-import Button from "@mui/material/Button"
-import Input from "@mui/material/Input"
-import Stack from "@mui/material/Stack"
-import { Box, Paper, Typography } from "@mui/material"
+import React, { useReducer, useState } from "react"
+import { Button, Input, Stack, Box, Paper, Typography } from "@mui/material"
 import config from "../../../config"
 import axios from "axios"
+import { ACTIONS } from "../../reducer/reducer"
 
 const apiKey = config.apiKey
 const token = config.token
 
 const CreateBoard = (props) => {
-    const { setBoards } = props
+    const { dispatch } = props
     const [createPhase, setCreatePhase] = useState(false)
 
     const createNewBoard = () => {
@@ -19,11 +17,9 @@ const CreateBoard = (props) => {
 
     const boardCreateRequest = (boardName) => {
         const url = `https://api.trello.com/1/boards/?name=${boardName}&key=${apiKey}&token=${token}`
-        axios
-            .post(url)
-            .then((response) =>
-                setBoards((prevValue) => [...prevValue, response.data])
-            )
+        axios.post(url).then((response) => {
+            dispatch({ type: ACTIONS.ADD_BOARD, payload: response.data })
+        })
     }
 
     return (

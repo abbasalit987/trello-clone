@@ -1,15 +1,17 @@
 import React, { useState } from "react"
-import Modal from "@mui/material/Modal"
-import Box from "@mui/material/Box"
-import Typography from "@mui/material/Typography"
-import Button from "@mui/material/Button"
-import CheckLists from "../checklists/CheckLists"
-import IconButton from "@mui/material/IconButton"
-import Menu from "@mui/material/Menu"
-import MenuItem from "@mui/material/MenuItem"
+import {
+    Modal,
+    Box,
+    Typography,
+    Button,
+    IconButton,
+    Menu,
+    MenuItem,
+} from "@mui/material"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
-import config from "../../../config"
+import CheckLists from "../checklists/CheckLists"
 import axios from "axios"
+import config from "../../../config"
 import "./TaskCard.css"
 
 const apiKey = config.apiKey
@@ -17,10 +19,10 @@ const token = config.token
 
 const TaskCard = (props) => {
     const { cardInfo } = props
-    const [open, setOpen] = React.useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
 
+    const [open, setOpen] = React.useState(false)
     const [cardDeleted, setCardDeleted] = useState(false)
 
     const style = {
@@ -40,7 +42,7 @@ const TaskCard = (props) => {
 
     return (
         <>
-            {cardDeleted ? null : (
+            {!cardDeleted && (
                 <>
                     <Button onClick={handleOpen}>{cardInfo.name}</Button>
                     <Modal

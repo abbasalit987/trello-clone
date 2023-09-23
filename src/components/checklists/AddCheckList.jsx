@@ -1,10 +1,12 @@
 import React, { useState } from "react"
-import Card from "@mui/material/Card"
-import CardContent from "@mui/material/CardContent"
-import Typography from "@mui/material/Typography"
-import Button from "@mui/material/Button"
-import Input from "@mui/material/Input"
-import Stack from "@mui/material/Stack"
+import {
+    Card,
+    CardContent,
+    Typography,
+    Stack,
+    Button,
+    Input,
+} from "@mui/material"
 import config from "../../../config"
 import axios from "axios"
 import "../list/List.css"

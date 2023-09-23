@@ -1,6 +1,5 @@
 import React from "react"
-import LinearProgress from "@mui/material/LinearProgress"
-import { Typography } from "@mui/material"
+import { Typography, LinearProgress } from "@mui/material"
 
 const ProgressBar = (props) => {
     const { progress } = props

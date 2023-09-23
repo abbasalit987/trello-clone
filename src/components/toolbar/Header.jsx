@@ -1,5 +1,5 @@
 import React from "react"
-import { AppBar, Box, Toolbar, Button } from "@mui/material"
+import { AppBar, Box, Toolbar } from "@mui/material"
 import "./Header.css"
 import AppsIcon from "@mui/icons-material/Apps"
 import TrelloLogo from "../../assets/Trello_logo.svg"

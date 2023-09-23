@@ -1,16 +1,18 @@
 import React, { useState } from "react"
-import Card from "@mui/material/Card"
-import CardActions from "@mui/material/CardActions"
-import CardContent from "@mui/material/CardContent"
-import Typography from "@mui/material/Typography"
-import "./List.css"
-import TaskCards from "../cards/TaskCards"
-import IconButton from "@mui/material/IconButton"
-import Menu from "@mui/material/Menu"
-import MenuItem from "@mui/material/MenuItem"
+import {
+    Card,
+    CardActions,
+    CardContent,
+    Typography,
+    IconButton,
+    Menu,
+    MenuItem,
+} from "@mui/material"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
+import TaskCards from "../cards/TaskCards"
 import config from "../../../config"
 import axios from "axios"
+import "./List.css"
 
 const apiKey = config.apiKey
 const token = config.token

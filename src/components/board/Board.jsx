@@ -1,7 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import Box from "@mui/material/Box"
-import Paper from "@mui/material/Paper"
+import { Box, Paper } from "@mui/material"
 import { Typography } from "@mui/material"
 
 const Board = (props) => {

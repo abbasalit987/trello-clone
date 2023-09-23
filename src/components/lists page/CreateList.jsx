@@ -1,19 +1,22 @@
 import React, { useState } from "react"
-import Card from "@mui/material/Card"
-import CardContent from "@mui/material/CardContent"
-import Typography from "@mui/material/Typography"
-import Button from "@mui/material/Button"
-import Input from "@mui/material/Input"
-import Stack from "@mui/material/Stack"
-import "../list/List.css"
+import {
+    Card,
+    CardContent,
+    Typography,
+    Button,
+    Input,
+    Stack,
+} from "@mui/material"
 import config from "../../../config"
 import axios from "axios"
+import "../list/List.css"
+import { ACTIONS } from "../../reducer/reducer"
 
 const apiKey = config.apiKey
 const token = config.token
 
 const CreateList = (props) => {
-    const { boardId, setLists } = props
+    const { boardId, dispatch } = props
     const [listCreatePhase, setListCreatePhase] = useState(false)
 
     const handleListCreate = () => {
@@ -25,7 +28,7 @@ const CreateList = (props) => {
         axios
             .post(url)
             .then((response) =>
-                setLists((prevValue) => [...prevValue, response.data])
+                dispatch({ type: ACTIONS.ADD_LISTS, payload: response.data })
             )
     }
 

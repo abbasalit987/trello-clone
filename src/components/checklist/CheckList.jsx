@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react"
+import { Typography, IconButton, Menu, MenuItem } from "@mui/material"
+import MoreVertIcon from "@mui/icons-material/MoreVert"
+import AddCheckItem from "./AddCheckItem"
 import ProgressBar from "../progress bar/ProgressBar"
+import CheckItem from "../checkitem/CheckItem"
 import axios from "axios"
 import config from "../../../config"
-import CheckItem from "../checkitem/CheckItem"
-import { Typography } from "@mui/material"
-import IconButton from "@mui/material/IconButton"
-import Menu from "@mui/material/Menu"
-import MenuItem from "@mui/material/MenuItem"
-import MoreVertIcon from "@mui/icons-material/MoreVert"
 import "./CheckList.css"
-import AddCheckItem from "./AddCheckItem"
 
 const apiKey = config.apiKey
 const token = config.token
