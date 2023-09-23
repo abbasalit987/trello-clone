@@ -10,12 +10,13 @@ import {
 import config from "../../../config"
 import axios from "axios"
 import "../list/List.css"
+import { ACTIONS } from "../../reducer/reducer"
 
 const apiKey = config.apiKey
 const token = config.token
 
 const AddCheckList = (props) => {
-    const { cardId, setCheckList } = props
+    const { cardId, dispatch } = props
     const [checkListCreatePhase, setCheckListCreatePhase] = useState(false)
 
     const handleCheckListCreate = () => {
@@ -27,7 +28,10 @@ const AddCheckList = (props) => {
         axios
             .post(url)
             .then((response) =>
-                setCheckList((prevValue) => [...prevValue, response.data])
+                dispatch({
+                    type: ACTIONS.ADD_CHECKLISTS,
+                    payload: response.data,
+                })
             )
     }
 

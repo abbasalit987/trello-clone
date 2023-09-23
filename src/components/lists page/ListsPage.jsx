@@ -43,7 +43,6 @@ const ListsPage = () => {
                     openSnackBar={errorResp}
                 />
             ) : null}
-
             {location.state.boardName && !state.editBoardTitlePhase && (
                 <Typography
                     sx={{
